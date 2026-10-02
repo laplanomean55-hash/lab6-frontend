@@ -1,4 +1,7 @@
+
 import { useEffect, useState } from 'react'
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
 function App() {
   const [username, setUsername] = useState('')
@@ -21,7 +24,7 @@ function App() {
     setMessage('')
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +54,7 @@ function App() {
     setMessage('')
 
     try {
-      const response = await fetch('/api/products', {
+      const response = await fetch(`${API_BASE_URL}/products`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -107,8 +110,8 @@ function App() {
 
     const isEditing = editingId !== null
     const url = isEditing
-      ? `/api/products/${editingId}`
-      : '/api/products'
+      ? `${API_BASE_URL}/products/${editingId}`
+      : `${API_BASE_URL}/products`
 
     try {
       const response = await fetch(url, {
@@ -155,7 +158,7 @@ function App() {
     if (!confirmed) return
 
     try {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/products/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -190,8 +193,8 @@ function App() {
     return (
       <div style={styles.page}>
         <div style={styles.loginCard}>
-         <h1 style={styles.title}>Product Management System</h1>
-        <h2 style={styles.subtitle}>Login to Your Account</h2>
+          <h1 style={styles.title}>Product Management System</h1>
+          <h2 style={styles.subtitle}>Login to Your Account</h2>
 
           <form onSubmit={handleLogin}>
             <label style={styles.label} htmlFor="username">Username</label>
@@ -380,7 +383,6 @@ function App() {
     </div>
   )
 }
-
 
 const styles = {
   page: {
@@ -584,7 +586,7 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     padding: '8px 12px',
-    cursor: 'pointer',
+    cursor: 'pointer'
   }
 }
 
